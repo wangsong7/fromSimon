@@ -1,0 +1,18 @@
+---
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleJob
+metadata:
+  name: retrieve-dns-entry
+  namespace: simon-ansible
+  labels:
+    app.kubernetes.io/name: hello-simon
+spec:
+  tower_auth_secret: toweraccess
+  job_template_name: retrieve-dns-entry
+  extra_vars:
+    API_DOMAIN: demo.red-chesterfield.com
+    # The AWS Route53 NS Record must exist with NameServers:
+    # ns1.f5cloudservices.com
+    # ns2.f5cloudservices.com
+    GSLB_ZONE: www-apps
+    BASE_DOMAIN: foxtrot.demo.red-chesterfield.com

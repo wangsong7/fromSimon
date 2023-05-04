@@ -1,0 +1,17 @@
+---
+ - hosts: localhost
+   vars:
+     AWS_ACCESS_KEY_ID: <aws-access-key>
+     AWS_SECRET_ACCESS_KEY: <aws-secret-access-key>
+   tasks:
+    - name: Route 53 A Record addition
+      route53:
+        state: get
+        private_zone: no
+        zone: melbourneopenshift.com
+        record: api.ocpdutch.melbourneopenshift.com
+        type: A
+      register: record
+
+    - name: display the record
+      debug: var=record

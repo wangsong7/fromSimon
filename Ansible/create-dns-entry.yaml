@@ -1,0 +1,19 @@
+---
+ - hosts: localhost
+   vars:
+     AWS_ACCESS_KEY_ID: <aws-access-key>
+     AWS_SECRET_ACCESS_KEY: <aws-secret-access-key>
+   tasks:
+    - name: Route 53 A Record addition
+      route53:
+        state: present
+        zone: melbourneopenshift.com
+        record: '*.ha-apps.melbourneopenshift.com'
+        type: A
+        ttl: 60
+        value: 94.130.204.145,176.9.0.138
+        wait: yes
+      register: result
+
+    - name: display the record
+      debug: var=result
